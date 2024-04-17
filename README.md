@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# Minesweeper (Game)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Link](Link)
 
-Currently, two official plugins are available:
+### About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A simple JavaScript game, built using React + TypeScript + Vite, tested using Vitest
 
-## Expanding the ESLint configuration
+## Deployed 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Deployed on (Netlify/Vercel/Digital_ocean) - nowhere - [link](link)
 
-- Configure the top-level `parserOptions` property like this:
+## References
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Scaffold docs : [here](./docs/README_Vite.md)
+- Vite : [here](https://vitejs.dev/)
+- Vitest : [here](https://vitest.dev/guide/)
+- Minesweeper : [here](https://en.wikipedia.org/wiki/Minesweeper_(video_game))
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Development
+
+1. Clone this repo: `gh repo clone huwfernie/minesweeper-game`
+1. install node modules: `npm install`
+1. use `npm run dev` to start the development server
+  - this should also open [http://localhost:5173/](http://localhost:5173/)
+1. Tests can be run with `npm run test`

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { generateGameBoard } from './helpers/board';
+import { testGameOver, testGameWin } from './helpers/game';
 import DisplayBoard from './components/DisplayBoard'
 
 function App() {
@@ -75,21 +76,13 @@ function App() {
   // TEST FOR GAME OVER ON EACH INTERACTION UPDATE
   useEffect(() => {
     if (gameBoard !== null) {
-      interactions.forEach((item) => {
-        const test = gameBoard.includes(item.replace('OPEN', 'X'));
-        if (test) {
-          setGameOver(true);
-        }
-      })
+      if (testGameOver(interactions, gameBoard)) {
+        setGameOver(true);
+      } else if (testGameWin(interactions, gameBoard)) {
+        setGameComplete(true);
+      }
     }
   }, [gameBoard, interactions])
-
-  // TEST FOR GAME WIN ON EACH INTERACTION UPDATE
-  useEffect(() => {
-    if (interactions.length === 81) {
-      setGameComplete(true);
-    }
-  }, [interactions])
 
   return (
     <>

@@ -8,7 +8,6 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [gameComplete, setGameComplete] = useState(false);
 
-
   function updateInteraction(el: string, type: "MARK" | "OPEN") {
     setInteraction((prevState) => {
       // Right Click / altKey - SET or REMOVE A MARK
@@ -60,6 +59,14 @@ function App() {
     }
   }
 
+  function handleReset(): void {
+    const board = generateGameBoard();
+    setGameBoard(board);
+    setInteraction([]);
+    setGameOver(false);
+    setGameComplete(false);
+  }
+
   useEffect(() => {
     const board = generateGameBoard();
     setGameBoard(board);
@@ -89,18 +96,19 @@ function App() {
       <section className="container px-4 py-10  mx-auto">
         <h1 className="text-3xl font-bold underline">Minesweeper</h1>
       </section>
-      <section className="container px-4 py-10 flex justify-center">
+      <section className="container px-4 py-5 flex justify-center">
         <div className="grid gap-1 grid-cols-9 grid-rows-9 bg-slate-50 w-fit p-1 border-2 border-solid border-black">
           <DisplayBoard gameBoard={gameBoard} interactions={interactions} handleClick={handleClick} />
         </div>
       </section>
-      <section className="game-over">
-        <p>{gameOver && "Game Over" || " "}</p>
+      <section className="container px-4 py-2">
+        <p className="py-2">{gameOver && "Game Over" || gameOver && gameComplete && "Game Complete"}</p>
+        <button
+          type="button"
+          className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          onClick={handleReset}>Reset</button>
       </section>
-      <section className="game-complete">
-        <p>{gameComplete && "Game Complete" || " "}</p>
-      </section>
-      <section className="instructions">
+      <section className="instructions pb-5">
         <p className="pb-4">Click to reveal what's behind each square</p>
         <p className="pb-4">If it's an <strong>X</strong> - Game Over</p>
         <p className="pb-4">Use the numbers to figure out where the nearby <strong>X</strong>'s are (vertically, horizontally and diagonally)</p>

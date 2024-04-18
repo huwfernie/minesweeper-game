@@ -86,10 +86,10 @@ function App() {
 
   return (
     <>
-      <section className="container px-4">
+      <section className="container px-4 py-10  mx-auto">
         <h1 className="text-3xl font-bold underline">Minesweeper</h1>
       </section>
-      <section className="container px-4">
+      <section className="container px-4 py-10 flex justify-center">
         <div className="grid gap-1 grid-cols-9 grid-rows-9 bg-slate-50 w-fit p-1 border-2 border-solid border-black">
           <DisplayBoard gameBoard={gameBoard} interactions={interactions} handleClick={handleClick} />
         </div>
@@ -101,9 +101,11 @@ function App() {
         <p>{gameComplete && "Game Complete" || " "}</p>
       </section>
       <section className="instructions">
-        <p>Minesweeper has a 9x9 grid of squares, behind each square could be a bomb, click to reveal a square - inside you will find the number of bombs that square touches (vertically, horizontally and diagonally).</p>
-        <p>When you know where a mine is, place a flag (use ctrl + click, or right click)</p>
-        <p>The goal is to reveal, or MARK all the squares in the grid.</p>
+        <p className="pb-4">Click to reveal what's behind each square</p>
+        <p className="pb-4">If it's an <strong>X</strong> - Game Over</p>
+        <p className="pb-4">Use the numbers to figure out where the nearby <strong>X</strong>'s are (vertically, horizontally and diagonally)</p>
+        <p className="pb-4">Place a marker (use ctrl + click, or right click) when you find an <strong>X</strong></p>
+        <p>The goal is to mark or reveal all the squares.</p>
       </section>
     </>
   )

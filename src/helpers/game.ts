@@ -11,14 +11,10 @@ export function testGameOver(interactions :string[], gameBoard: string[]): boole
 }
 
 export function testGameWin(interactions :string[], gameBoard: string[]): boolean {
-    let result = false;
-    const hasFinishedGuessing = interactions.length === 81;
+    const hasFinishedGuessing = interactions.length === gameBoard.length;
     const numberOfMinesInGame = gameBoard.filter((el) => el.includes('X')).length;
     const numberOfMarksPlaced = interactions.filter((el) => el.includes('MARK')).length;
     const numbersMatch = numberOfMinesInGame === numberOfMarksPlaced;
-
-    if (hasFinishedGuessing && numbersMatch) {
-        result = true;
-    }
-    return result;
+    
+    return hasFinishedGuessing && numbersMatch;
 }

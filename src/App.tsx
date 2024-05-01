@@ -5,14 +5,14 @@ import DisplayBoard from './components/DisplayBoard'
 
 function App() {
   const [gameBoard, setGameBoard] = useState<string[] | null>(null);
-  const [interactions, setInteraction] = useState<string[]>([]);
+  const [interactions, setInteractions] = useState<string[]>([]);
   const [gameOver, setGameOver] = useState(false);
   const [gameComplete, setGameComplete] = useState(false);
 
   function updateInteraction(el: string, type: "MARK" | "OPEN") {
-    setInteraction((prevState) => {
-      // Right Click / altKey - SET or REMOVE A MARK
-      if (type === "MARK") {
+    // Right Click / altKey - SET or REMOVE A MARK
+    if (type === "MARK") {
+      setInteractions((prevState) => {
         el = el.replace(/(\d)_(\d)_(.*)/, "$1_$2_MARK");
 
         // if MARK was in prevState then remove it and update state, else add MARK to state
@@ -23,18 +23,70 @@ function App() {
         } else {
           return [...prevState, el]
         }
-      } else {
-        // LEFT click
-        el = el.replace(/(\d)_(\d)_(.*)/, "$1_$2_OPEN");
-        const test = ([...prevState] as string[]).includes(el)
+      });
+    } else if (type == "OPEN") {
+      // else LEFT click
+      el = el.replace(/(\d)_(\d)_(.*)/, "$1_$2_OPEN");
+
+      setInteractions((prevState) => {
+        // if this is a new state update then add it to previous state and return, else if duplicate return old state.
+        const test = ([...prevState] as string[]).includes(el);
         if (!test) {
           return [...prevState, el]
         } else {
           return prevState
         }
-      }
-    });
+      });
+    }
   }
+  
+  /**
+   * Use Effect will run every time an interaction (state) is updated
+   * This will loop over the entire board and then open any cells that now neighbour an open && zero cell
+   */
+  useEffect(() => {
+    let x = 1;
+    let y = 1;
+    const willOpen: string[] = [];
+
+    function checkNeighbour(x: number, y: number): boolean {
+      const elIsZero = gameBoard?.find((element) => element.includes(`${x}_${y}_`))?.split("_")[2] === "0";
+      const elIsOpen = interactions?.find((element) => element.includes(`${x}_${y}_`))?.split("_")[2] === "OPEN";
+      return elIsZero && elIsOpen;
+    }
+    
+    // Iterate over ever cell in the game, if it borders a zero, and that zero is open, then 
+    while (y <= 9) {
+      while (x <= 9) {
+        // console.log(x, y);
+        // do I touch a zero?
+        // Is that zero open?
+        // if yes & yes then open me
+        const n = checkNeighbour(x, y + 1);
+        const s = checkNeighbour(x, y - 1);
+        const e = checkNeighbour(x + 1, y);
+        const w = checkNeighbour(x - 1, y);
+        const elTouchesZeroEl = n || s || e || w;
+        const iAmClosed = interactions?.includes(`${x}_${y}_OPEN`) ? false : true;
+        const notAlreadyCounted = willOpen?.includes(`${x}_${y}_OPEN`) ? false : true;
+        if (elTouchesZeroEl && iAmClosed && notAlreadyCounted) {
+          willOpen.push(`${x}_${y}_OPEN`);
+          // updated willOpen - reset x and y and start search again
+          x = 1;
+          y = 1;
+        }
+        x++;
+      }
+      x = 1;
+      y++;
+    }
+
+    if (willOpen.length > 0) {      
+      setInteractions((interactions) => {
+        return [...interactions, ...willOpen];
+      })
+    }
+  }, [gameBoard, interactions])
 
   function handleClick(clickEvent: React.MouseEvent<HTMLButtonElement>): void {
     // TypeGuards
@@ -63,7 +115,7 @@ function App() {
   function handleReset(): void {
     const board = generateGameBoard();
     setGameBoard(board);
-    setInteraction([]);
+    setInteractions([]);
     setGameOver(false);
     setGameComplete(false);
   }

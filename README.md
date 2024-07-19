@@ -1,6 +1,6 @@
 # Minesweeper (Game)
 
-[Link](Link)
+[https://minesweeper-game-pi.vercel.app/](https://minesweeper-game-pi.vercel.app/)
 
 ### About
 
@@ -8,7 +8,7 @@ A simple JavaScript game, built using React + TypeScript + Vite, tested using Vi
 
 ## Deployed 
 
-Deployed on (Netlify/Vercel/Digital_ocean) - nowhere - [link](link)
+Deployed on (Netlify/Vercel/Digital_ocean) - Vercel - [https://minesweeper-game-pi.vercel.app/](https://minesweeper-game-pi.vercel.app/)
 
 ## References
 

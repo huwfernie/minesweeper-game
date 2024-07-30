@@ -88,7 +88,7 @@ function App() {
     }
   }, [gameBoard, interactions])
 
-  function handleClick(clickEvent: React.MouseEvent<HTMLButtonElement>): void {
+  function handleClick(clickEvent: React.MouseEvent<HTMLButtonElement>): void {    
     // TypeGuards
     if (!(clickEvent.target instanceof HTMLButtonElement)) {
       return;
@@ -104,8 +104,9 @@ function App() {
       return;
     }
 
-    // @TODO - handle right click where available
-    if (clickEvent.altKey) {
+    const altKeyDown = clickEvent.altKey;
+    const rightClick = clickEvent.button === 2;
+    if (altKeyDown || rightClick) {
       updateInteraction(el, "MARK");
     } else {
       updateInteraction(el, "OPEN");
@@ -134,7 +135,7 @@ function App() {
         setGameComplete(true);
       }
     }
-  }, [gameBoard, interactions])
+  }, [gameBoard, interactions]);
 
   return (
     <>
@@ -142,7 +143,8 @@ function App() {
         <h1 className="text-3xl font-bold underline">Minesweeper</h1>
       </section>
       <section className="container px-4 py-5 mx-auto flex justify-center">
-        <div className="grid gap-1 grid-cols-9 grid-rows-9 bg-slate-50 w-fit p-1 border-2 border-solid border-black">
+        <div className="grid gap-1 grid-cols-9 grid-rows-9 bg-slate-50 w-fit p-1 border-2 border-solid border-black"
+        onContextMenu={(e) => e.preventDefault()}>
           <DisplayBoard gameBoard={gameBoard} interactions={interactions} handleClick={handleClick} />
         </div>
       </section>

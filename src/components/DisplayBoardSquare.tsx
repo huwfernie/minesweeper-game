@@ -15,7 +15,8 @@ function DefaultSquare({ handleClick, el }: IClickableSquare): React.JSX.Element
     className="bg-slate-200 hover:bg-slate-400 aspect-square text-xs min-w-4"
     data-el={el}
     onClick={handleClick}
-  ></button >
+    onContextMenu={handleClick}
+  ></button>
 }
 
 function OpenSquare({ value, el }: ISquareWithValue): React.JSX.Element {
@@ -33,6 +34,7 @@ function MarkedSquare({ handleClick, el }: IClickableSquare): React.JSX.Element 
       className="bg-slate-100 hover:bg-slate-400 aspect-square text-xs min-w-4"
       data-el={el}
       onClick={handleClick}
+      onContextMenu={handleClick}
     >!</button>
   )
 }

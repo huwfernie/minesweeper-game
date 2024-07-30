@@ -31,7 +31,7 @@ function OpenSquare({ value, el }: ISquareWithValue): React.JSX.Element {
 function MarkedSquare({ handleClick, el }: IClickableSquare): React.JSX.Element {
   return (
     <button
-      className="bg-slate-100 hover:bg-slate-400 aspect-square text-xs min-w-4"
+      className="bg-red-100 hover:bg-red-400 aspect-square text-xs min-w-4 text-red-600 font-bold"
       data-el={el}
       onClick={handleClick}
       onContextMenu={handleClick}
